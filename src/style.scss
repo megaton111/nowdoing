@@ -1,0 +1,126 @@
+
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-padding-top: 120px;
+}
+
+:root {
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  font-size: 14px ;
+  line-height:1.5 ;
+  font-weight: 400 ;
+  color-scheme: light dark;
+  color: #e2e4e9d1 ;
+  // background-color: #1e2129;
+  background-color: #121528;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+a {
+  color: #e2e4e9d1;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #e2e4e9d1;
+  text-decoration: underline ;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color:#00ccb8 ; 
+}
+
+// p {
+//   line-height:1.6 ; 
+// }
+
+body {
+  // padding-top:120px ; 
+}
+#app {
+  display: flex;
+  flex-direction: column ;
+  gap:40px ; 
+  min-height: 100vh ;
+  max-width: 978px ;
+  width: 100% ;
+  // padding-top:120px ; 
+  header {
+    max-width: 978px ;
+    width: 100% ;
+    background-color: rgb(30, 33, 41, 0.5);
+
+    &.scrolled {
+      > div {
+        // height: 80px ;
+        border-bottom-color: #155952 ;
+        h1 {
+          // font-size: 24px ;
+        }
+      }
+    }
+    > div {
+      display: flex;
+      width: 100% ; height: 100px ;
+      align-items: center ; 
+      justify-content: center ;
+      border-bottom: 1px solid #ffffff38 ; 
+      transition:all .4s ; 
+    }
+    h1 {
+      letter-spacing: 10px ;
+      transition:all .4s ; 
+    }
+    &.new-class {
+      h1 {
+        letter-spacing: 0px ;
+      }
+    }
+  }
+  aside {
+    flex : 0 0 220px ; 
+  }
+  main {
+    flex : 1 ; 
+  }
+  footer {
+    padding: 30px 0 ;
+    border-top: 1px solid #ffffff38 ; 
+  }
+
+  hr {
+    background-color: #e2e4e91f ;
+    margin:60px 0 ; 
+    border: 0; 
+    height: 1px ;
+  }
+}
+
+.font-mono {
+  font-family: "Source Code Pro",  -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+.primary-color {
+  color: #00ccb8 ;
+}
+
+@media (prefers-color-scheme: light) {
+  
+}
