@@ -321,7 +321,129 @@ const location = ref({
 }) ;
 
 const sampleDatas = [
-  '월드컵공원 산책하기' , '하늘공원 산책하기', '한국 영화박물관 가기', '홍대클럽가기', '공덕동 족발골목가서 족발먹기', '상수동 카페거리 가기'
+  {
+    city : '서울' , 
+    child : [
+      {
+        city : '강남구' , 
+        plays : ['월드컵공원 산책하기' , '하늘공원 산책하기', '한국 영화박물관 가기', '홍대클럽가기', '공덕동 족발골목가서 족발먹기', '상수동 카페거리 가기']
+      } , 
+      {
+        city : '강동구' , 
+        plays : ['강동구에서 놀기1', '강동구에서 놀기2', '강동구에서 놀기3']
+      } , 
+      {
+        city : '강북구' , 
+        plays : ['강북구에서 놀기1', '강북구에서 놀기2', '강북구에서 놀기3']
+      } , 
+      {
+        city : '강서구' , 
+        plays : ['강서구에서 놀기1', '강서구에서 놀기2', '강서구에서 놀기3']
+      } , 
+      {
+        city : '관악구' , 
+        plays : ['관악구에서 놀기1', '관악구에서 놀기2', '관악구에서 놀기3']
+      } , 
+      {
+        city : '광진구' , 
+        plays : ['광진구에서 놀기1', '광진구에서 놀기2', '광진구에서 놀기3']
+      } , 
+      {
+        city : '구로구' , 
+        plays : ['구로구에서 놀기1', '구로구에서 놀기2', '구로구에서 놀기3']
+      } , 
+      {
+        city : '금천구' , 
+        plays : ['금천구에서 놀기1', '금천구에서 놀기2', '금천구에서 놀기3']
+      } , 
+      {
+        city : '노원구' , 
+        plays : ['노원구에서 놀기1', '노원구에서 놀기2', '노원구에서 놀기3']
+      } , 
+      {
+        city : '도봉구' , 
+        plays : ['도봉구에서 놀기1', '도봉구에서 놀기2', '도봉구에서 놀기3']
+      } , 
+      {
+        city : '동대문구' , 
+        plays : ['동대문구에서 놀기1', '동대문구에서 놀기2', '동대문구에서 놀기3']
+      } , 
+      {
+        city : '동작구' , 
+        plays : ['동작구에서 놀기1', '동작구에서 놀기2', '동작구에서 놀기3']
+      } , 
+      {
+        city : '마포구' , 
+        plays : ['마포구에서 놀기1', '마포구에서 놀기2', '마포구에서 놀기3']
+      } , 
+      {
+        city : '서대문구' , 
+        plays : ['서대문구에서 놀기1', '서대문구에서 놀기2', '서대문구에서 놀기3']
+      } , 
+      {
+        city : '서초구' , 
+        plays : ['서초구에서 놀기1', '서초구에서 놀기2', '서초구에서 놀기3']
+      } , 
+      {
+        city : '성동구' , 
+        plays : ['성동구에서 놀기1', '성동구에서 놀기2', '성동구에서 놀기3']
+      } , 
+      {
+        city : '성북구' , 
+        plays : ['성북구에서 놀기1', '성북구에서 놀기2', '성북구에서 놀기3']
+      } , 
+      {
+        city : '송파구' , 
+        plays : ['송파구에서 놀기1', '송파구에서 놀기2', '송파구에서 놀기3']
+      } , 
+      {
+        city : '양천구' , 
+        plays : ['양천구에서 놀기1', '양천구에서 놀기2', '양천구에서 놀기3']
+      } , 
+      {
+        city : '영등포구' , 
+        plays : ['영등포구에서 놀기1', '영등포구에서 놀기2', '영등포구에서 놀기3']
+      } , 
+      {
+        city : '용산구' , 
+        plays : ['용산구에서 놀기1', '용산구에서 놀기2', '용산구에서 놀기3']
+      } , 
+      {
+        city : '은평구' , 
+        plays : ['은평구에서 놀기1', '은평구에서 놀기2', '은평구에서 놀기3']
+      } , 
+      {
+        city : '종로구' , 
+        plays : ['종로구에서 놀기1', '종로구에서 놀기2', '종로구에서 놀기3']
+      } , 
+      {
+        city : '중구' , 
+        plays : ['중구에서 놀기1', '중구에서 놀기2', '중구에서 놀기3']
+      } , 
+      {
+        city : '중랑구' , 
+        plays : ['중랑구에서 놀기1', '중랑구에서 놀기2', '중랑구에서 놀기3']
+      } , 
+    ]
+  } ,
+  {
+    city : '경기' , 
+    child : [
+      {
+        city : '수원시' , 
+        plays : ['수원시에서 놀기1', '수원시에서 놀기2', '수원시에서 놀기3']
+      } , 
+      {
+        city : '고양시' , 
+        plays : ['고양시에서 놀기1', '고양시에서 놀기2', '고양시에서 놀기3']
+      } , 
+      {
+        city : '화성시' , 
+        plays : ['화성시에서 놀기1', '화성시에서 놀기2', '화성시에서 놀기3']
+      } , 
+    ]
+  } ,
+  // '월드컵공원 산책하기' , '하늘공원 산책하기', '한국 영화박물관 가기', '홍대클럽가기', '공덕동 족발골목가서 족발먹기', '상수동 카페거리 가기'
 ] ; 
 
 const selectDatas = ref('') ; 
@@ -338,21 +460,61 @@ const getRandomNumber = (min, max) => {
 };
 
 const getRandomData = () => {
-  let idx = getRandomNumber(0, sampleDatas.length - 1) ;
-  return sampleDatas[idx] ;
+  console.log( 'getRandomData in' ) ;
+
+  return new Promise((resolve) => {
+
+    setTimeout(() => { // 로딩바를 보여주기 위해 강제로 로딩 시간 2초 넣어둠
+
+      let 
+        bigCity = location.value.selected
+      , smallCity = loChild.value.selected
+      , count = null
+      , result = null
+      ; 
+
+      // console.log('bigCity :', bigCity ) ;
+      // console.log('smallCity :', smallCity ) ;
+    
+      const bigCityObj = sampleDatas.find(data => data.city === bigCity);
+
+      // console.log({ bigCityObj }) ;
+
+      
+      if (!bigCityObj) return null;
+    
+      const smallCityObj = bigCityObj.child.find(data => data.city === smallCity);
+
+      // console.log({ smallCityObj }) ;
+    
+      if (!smallCityObj) return null;
+
+      count = getRandomNumber(0, smallCityObj.plays.length - 1) ; 
+      result = smallCityObj.plays[ count ] ;
+
+      // console.log('count : ', count ) ; 
+      // console.log('smallCityObj.plays : ', smallCityObj.plays ) ; 
+      // console.log('result : ', result ) ; 
+    
+      resolve( result );
+
+    },2000) ; 
+  }) ;
+
+  
+
 };
 
-const buttonClick = () => {
+const buttonClick = async () => {
   if( buttonClicked.value ) return ;
   selectDatas.value = '' ;
   buttonClicked.value = true ; 
   buttonText.value = '잠시만 기다려주세요...' ;
 
-  setTimeout(() => {
-    buttonClicked.value = false;
-    buttonText.value = '추천해줘!';
-    selectDatas.value = getRandomData() ;
-  }, 1000);
+  selectDatas.value = await getRandomData() ;
+  buttonClicked.value = false;
+  buttonText.value = '추천해줘!';
+
   
 }
 
