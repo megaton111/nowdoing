@@ -5,14 +5,14 @@ import plays from "@/play.json";
 
 const playDatas = ref(plays) ; 
 const appTitle = ref('지금 뭐하지?') ; 
-const titleWhere = ref('어디신가요?') ; 
+const titleWhere = ref('위치를 선택해주세요!') ; 
 const resultData = ref([]) ; 
 const buttonText = ref('추천해줘!') ;
 const buttonClicked = ref( false ) ; 
 const latestData = ref('') ; 
 const CLIENTID = 'SyfOOErOjwuGUGQo_7dk' ; 
 const CLIENTSECRET = '_tcZ5f056o' ;
-const PROXY = window.location.hostname === 'localhost' ? '' : 'https://openapi.naver.com';
+const PROXY = window.location.hostname === 'localhost' ? '' : '/proxy';
 const url = `${PROXY}/v1/search/blog.json`;
 const isChk = ref( false ) ; 
 const blogData = ref([]) ; 
@@ -342,7 +342,7 @@ const getRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-// 랜덤 데이터 뽑아오기
+// 랜덤 데이터 가져오기
 const getRandomData = () => {
 
   return new Promise((resolve) => {
@@ -382,6 +382,7 @@ const getRandomData = () => {
 
 };
 
+// 블로그 글 리스트 가져오기
 const getAddInfoData = async ( resultData ) => {
 
   try {
@@ -408,8 +409,7 @@ const getAddInfoData = async ( resultData ) => {
 
 }
 
-
-
+// 추천하기 버튼 클릭 이벤트
 const getPlayDataHandler = async () => {
   if( buttonClicked.value ) return ;
   buttonClicked.value = true ; 
@@ -421,10 +421,12 @@ const getPlayDataHandler = async () => {
   resetStatus() ; 
 }
 
+// 관련정보 더보기 버튼 클릭 이벤트
 const showBlogPostHandler = () => {
   getAddInfoData( latestData.value ) ; 
 }
 
+// 버튼 정보 초기화
 const resetStatus = () => {
   buttonClicked.value = false;
   buttonText.value = '추천해줘!';
@@ -444,10 +446,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div 
-    class="flex flex-col items-center justify-center gap-4 w-full h-full flex-1 wrap" 
-  >
-    <h1 class="text-lg mb-4 tracking-tighter absolute top-2.5 left-2.5">{{ appTitle }}</h1>
+  <div class="flex flex-col items-center justify-center gap-4 w-full h-full flex-1 wrap">
+    <h1 class="text-lg mb-4 absolute top-2.5 left-2.5 opacity-40 w-full text-center font-bold" style="letter-spacing:25px;">{{ appTitle }}</h1>
     <h2 class="text-xl mb-4 tracking-tighter">{{ titleWhere }}</h2>
 
     <div class="flex flex-col gap-2 w-full">
@@ -531,23 +531,6 @@ onMounted(() => {
           </li>
         </ul>
       </div>
-
-      <!-- 
-      제목 : 지금 뭐하지?
-
-      심심해서 뭘 하고싶긴한데 뭐하고 싶을 지 모를 떄 제안해주는 어플!
-      지역은 선택 한 후 지역별로 지금 할 수있는 것들으 제안해줍니다.
-      -->
-
-      <!-- <div class="flex">
-        <div class="mr-4">위치한 구</div>
-        
-        <template v-for="(t,i) in guType.options" :key="i">
-          <input type="checkbox" :id="t.id" v-model="guType.selected" :value="t.label">
-          <label :for="t.id" class="pl-1 mr-2 cursor-pointer">{{ t.label }}</label>  
-        </template>
-        
-      </div> -->
 
     </div>
 
