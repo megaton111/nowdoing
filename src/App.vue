@@ -10,6 +10,11 @@ const resultData = ref([]) ;
 const buttonText = ref('추천해줘!') ;
 const buttonClicked = ref( false ) ; 
 
+const CLIENTID = 'SyfOOErOjwuGUGQo_7dk' ; 
+const CLIENTSECRET = '_tcZ5f056o' ;
+const url = '/v1/search/blog.json';
+
+
 // 위치
 const location = ref({
   selected : '서울' , 
@@ -378,18 +383,38 @@ const getRandomData = () => {
 
 };
 
-const getAddInfoData = ( resultData ) => {
+const getAddInfoData = async ( resultData ) => {
+
   console.log('getAddInfoData in', resultData) ; 
+
   let blogData = null ; 
-  axios.get('https://openapi.naver.com/v1/search/blog.json',{
-    params : { query : resultData } ,
-    headers : {
-      "X-Naver-Client-Id" : id , 
-      "X-Naver-Client-Secret" : secretId , 
+
+  try {
+      const response = await axios.get(url, {
+        params: {
+          query: resultData ,
+          display: 10, // Number of results to display (1 to 100)
+          start: 1, // Starting result position (default is 1)
+          sort: 'sim' // Sort by similarity or date ('sim' or 'date')
+        },
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'X-Naver-Client-Id': CLIENTID,
+          'X-Naver-Client-Secret': CLIENTSECRET
+        }
+      });
+
+      console.log('response : ', response ) ; 
+
+      blogData = response.data.items ;
+
+      console.log('blogData : ', blogData ) ; 
+    
+    } catch (error) {
+      console.error('Error fetching blog data:', error);
     }
-  }).then((response) => {
-    console.log('response : ', response ) ; 
-  })
+
+
 }
 
 const buttonClick = async () => {
@@ -397,9 +422,10 @@ const buttonClick = async () => {
   // resultData.value = [] ;
   buttonClicked.value = true ; 
   buttonText.value = '잠시만 기다려주세요...' ;
-
-  resultData.value.unshift( await getRandomData() ) ;
+  let getData = await getRandomData() ; 
+  resultData.value.unshift( getData ) ;
   
+  getAddInfoData( getData ) ; 
   resetStatus() ; 
 }
 
