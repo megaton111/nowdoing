@@ -5,7 +5,7 @@ import { onMounted, ref, watch } from "vue";
 // import Footer from './components/Footer.vue';
 // import Story from './components/Story.vue';
 const appTitle = ref('지금 뭐하지?') ; 
-const titleWhere = ref('지금 어디에요?') ; 
+const titleWhere = ref('어디신가요?') ; 
 // 위치
 const location = ref({
   selected : '서울' , 
@@ -472,29 +472,18 @@ const getRandomData = () => {
       , count = null
       , result = null
       ; 
-
-      // console.log('bigCity :', bigCity ) ;
-      // console.log('smallCity :', smallCity ) ;
     
       const bigCityObj = sampleDatas.find(data => data.city === bigCity);
-
-      // console.log({ bigCityObj }) ;
-
       
       if (!bigCityObj) return null;
     
       const smallCityObj = bigCityObj.child.find(data => data.city === smallCity);
 
-      // console.log({ smallCityObj }) ;
     
       if (!smallCityObj) return null;
 
       count = getRandomNumber(0, smallCityObj.plays.length - 1) ; 
       result = smallCityObj.plays[ count ] ;
-
-      // console.log('count : ', count ) ; 
-      // console.log('smallCityObj.plays : ', smallCityObj.plays ) ; 
-      // console.log('result : ', result ) ; 
     
       resolve( result );
 
@@ -534,7 +523,7 @@ onMounted(() => {
 <template>
   <div class="flex flex-col items-center justify-center gap-4 w-full h-full flex-1">
     <h1 class="text-lg mb-4 tracking-tighter absolute top-2.5 left-2.5">{{ appTitle }}</h1>
-    <h2 class="text-3xl mb-4 tracking-tighter">{{ titleWhere }}</h2>
+    <h2 class="text-xl mb-4 tracking-tighter">{{ titleWhere }}</h2>
 
     <div class="flex flex-col gap-2">
 
