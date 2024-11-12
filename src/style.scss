@@ -123,7 +123,6 @@ body {
 
 .select {
   width: 100% ;
-  max-width: 140px ;
   background-color: #121528;
   padding: 6px ; 
   border: 1px solid #272b46 ;
@@ -131,7 +130,12 @@ body {
 }
 
 .bx-prev-data{
-  height: 180px ;
+  height: 120px ;
+  overflow-y:auto ; 
+}
+
+.bx-blog-data{
+  height: 120px ;
   overflow-y:auto ; 
 }
 @media (prefers-color-scheme: light) {

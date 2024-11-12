@@ -16,4 +16,15 @@ export default defineConfig({
       plugins: [tailwindcss()],
     },
   },
+  server: {
+    proxy: {
+      '/v1': {
+        target: 'https://openapi.naver.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+        secure: false,
+        ws: true
+      }
+    }
+  }
 })

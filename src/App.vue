@@ -9,11 +9,16 @@ const titleWhere = ref('어디신가요?') ;
 const resultData = ref([]) ; 
 const buttonText = ref('추천해줘!') ;
 const buttonClicked = ref( false ) ; 
+const latestData = ref('') ; 
 
 const CLIENTID = 'SyfOOErOjwuGUGQo_7dk' ; 
 const CLIENTSECRET = '_tcZ5f056o' ;
 const url = '/v1/search/blog.json';
 
+const BOOKURL = "/v1/search/book.json?sort=date&d_titl=%EC%A3%BC%EC%8B%9D&display=10&start=1";
+
+const isChk = ref( false ) ; 
+const blogData = ref([]) ; 
 
 // 위치
 const location = ref({
@@ -335,7 +340,6 @@ const locationChild = ref({
   options : []
 }) ;
 
-
 // 랜덤 숫자
 const getRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -385,10 +389,6 @@ const getRandomData = () => {
 
 const getAddInfoData = async ( resultData ) => {
 
-  console.log('getAddInfoData in', resultData) ; 
-
-  let blogData = null ; 
-
   try {
       const response = await axios.get(url, {
         params: {
@@ -404,29 +404,30 @@ const getAddInfoData = async ( resultData ) => {
         }
       });
 
-      console.log('response : ', response ) ; 
-
-      blogData = response.data.items ;
-
+      blogData.value = response.data.items ;
       console.log('blogData : ', blogData ) ; 
     
     } catch (error) {
       console.error('Error fetching blog data:', error);
     }
 
-
 }
 
-const buttonClick = async () => {
+
+
+const getPlayDataHandler = async () => {
   if( buttonClicked.value ) return ;
-  // resultData.value = [] ;
   buttonClicked.value = true ; 
+  blogData.value = [] ; 
   buttonText.value = '잠시만 기다려주세요...' ;
-  let getData = await getRandomData() ; 
-  resultData.value.unshift( getData ) ;
-  
-  getAddInfoData( getData ) ; 
+  latestData.value = await getRandomData() ; 
+  resultData.value.unshift( latestData.value ) ;
+  isChk.value = true ; // 한번이라도 조회를 했으면 true값으로 변경
   resetStatus() ; 
+}
+
+const showBlogPostHandler = () => {
+  getAddInfoData( latestData.value ) ; 
 }
 
 const resetStatus = () => {
@@ -448,39 +449,44 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-col items-center justify-center gap-4 w-full h-full flex-1">
+  <div 
+    class="flex flex-col items-center justify-center gap-4 w-full h-full flex-1 wrap" 
+  >
     <h1 class="text-lg mb-4 tracking-tighter absolute top-2.5 left-2.5">{{ appTitle }}</h1>
     <h2 class="text-xl mb-4 tracking-tighter">{{ titleWhere }}</h2>
 
     <div class="flex flex-col gap-2 w-full">
 
-      <div class="flex items-center justify-center">
-        <select 
-          class="text-lg text-white-800 cursor-pointer w-28 select" 
-          v-model="location.selected"
-        >
-          <template v-for="(t,i) in location.options" :key="i">
-            <option class="text-white-800">{{ t.label }}</option>
-          </template>
-        </select>
+      <div class="flex w-full px-20">
+        <div class="flex flex-1 items-center justify-center">
+          <select 
+            class="text-lg text-white-800 cursor-pointer w-full select" 
+            v-model="location.selected"
+          >
+            <template v-for="(t,i) in location.options" :key="i">
+              <option class="text-white-800">{{ t.label }}</option>
+            </template>
+          </select>
+        </div>
+
+        <div class="flex flex-1 items-center justify-center">
+          <select 
+            class="text-lg text-white-800 cursor-pointer w-full select" 
+            v-model="locationChild.selected"
+          >
+            <template v-for="(t,i) in locationChild.options" :key="i">
+              <option class="text-white-800">{{ t.label }}</option>
+            </template>
+          </select>
+        </div>
       </div>
 
-      <div class="flex items-center justify-center">
-        <select 
-          class="text-lg text-white-800 cursor-pointer w-28 select" 
-          v-model="locationChild.selected"
-        >
-          <template v-for="(t,i) in locationChild.options" :key="i">
-            <option class="text-white-800">{{ t.label }}</option>
-          </template>
-        </select>
-      </div>
 
       <div class="flex items-center justify-center mt-6">
         <button 
           class="relative border-gray-600 border-2 bg-gray-900 text-white text-center outline-none uppercase tracking-tighter py-3 px-6 leading-4 transition-all duration-500 ease-in-out rounded-full cursor-pointer text-xl"
           :class="{ 'pr-8 pl-4': buttonClicked }"
-          v-on:click="buttonClick()"
+          @click="getPlayDataHandler"
         >
           {{ buttonText }}
           <span 
@@ -493,16 +499,40 @@ onMounted(() => {
       </div>
 
       <div class="flex flex-col items-center justify-center mt-6">
-        <strong class="inline-flex text-2xl font-normal tracking-tighter text-white h-20 items-center justify-center px-10">
-          {{ resultData[0] }}
+        <strong class="inline-flex text-4xl font-normal tracking-tighter text-white items-center justify-center px-10">
+          {{ resultData[0] }} 
         </strong> 
-        <ul class="flex flex-col bx-prev-data">
+        <button 
+          type="button" 
+          class="flex text-sm mb-4 mt-2 w-full justify-center"
+          @click="showBlogPostHandler"
+          v-if="resultData.length > 0"
+        >
+          관련정보 더보기
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" 
+            className="size-6" 
+            class="w-4"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+          </svg>
+        </button>
+
+        <!-- 이전 조회 데이터 -->
+        <!-- <ul class="flex flex-col bx-prev-data">
           <li
             class="inline-flex font-normal tracking-tighter text-white items-center justify-center px-10 opacity-20 text-base"
             :class="{ 'hidden' : idx == 0 }"
             v-for="(item,idx) in resultData" :key="idx"
           >
             {{ item }}
+          </li>
+        </ul> -->
+        
+        <!-- 블로그 관련글 -->
+        <ul class="flex flex-col gap-1 px-4 bx-blog-data">
+          <li v-for="(blog,bIdx) in blogData" :key="bIdx">
+            <a :href="blog.link" v-html="blog.title"></a>
           </li>
         </ul>
       </div>
@@ -532,11 +562,13 @@ onMounted(() => {
 </template>
 
 <style lang="scss" scoped>
+.wrap{
+  // transition: all .4s ease-in ;
+}
+
 .loader {
-  // Off-Piste Un-Tailwind-esque Bodges
   right: 0.875rem;
   top: 50%;
-  // Loader Construction Using Borders     
   border-top: 2px solid #fff;
   border-left: 2px solid #fff;
   border-bottom: 2px solid #fff;
