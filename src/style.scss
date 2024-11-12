@@ -121,6 +121,19 @@ body {
   color: #00ccb8 ;
 }
 
+.select {
+  width: 100% ;
+  max-width: 140px ;
+  background-color: #121528;
+  padding: 6px ; 
+  border: 1px solid #272b46 ;
+  border-radius: 4px ;
+}
+
+.bx-prev-data{
+  height: 180px ;
+  overflow-y:auto ; 
+}
 @media (prefers-color-scheme: light) {
   
 }

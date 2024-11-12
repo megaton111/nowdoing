@@ -1,11 +1,15 @@
 <script setup>
 import { onMounted, ref, watch } from "vue";
-// import Header from './components/Header.vue';
-// import Container from './components/Container.vue';
-// import Footer from './components/Footer.vue';
-// import Story from './components/Story.vue';
+import axios from "axios";
+import plays from "@/play.json";
+
+const playDatas = ref(plays) ; 
 const appTitle = ref('지금 뭐하지?') ; 
 const titleWhere = ref('어디신가요?') ; 
+const resultData = ref([]) ; 
+const buttonText = ref('추천해줘!') ;
+const buttonClicked = ref( false ) ; 
+
 // 위치
 const location = ref({
   selected : '서울' , 
@@ -320,202 +324,99 @@ const location = ref({
   ]
 }) ;
 
-const sampleDatas = [
-  {
-    city : '서울' , 
-    child : [
-      {
-        city : '강남구' , 
-        plays : ['월드컵공원 산책하기' , '하늘공원 산책하기', '한국 영화박물관 가기', '홍대클럽가기', '공덕동 족발골목가서 족발먹기', '상수동 카페거리 가기']
-      } , 
-      {
-        city : '강동구' , 
-        plays : ['강동구에서 놀기1', '강동구에서 놀기2', '강동구에서 놀기3']
-      } , 
-      {
-        city : '강북구' , 
-        plays : ['강북구에서 놀기1', '강북구에서 놀기2', '강북구에서 놀기3']
-      } , 
-      {
-        city : '강서구' , 
-        plays : ['강서구에서 놀기1', '강서구에서 놀기2', '강서구에서 놀기3']
-      } , 
-      {
-        city : '관악구' , 
-        plays : ['관악구에서 놀기1', '관악구에서 놀기2', '관악구에서 놀기3']
-      } , 
-      {
-        city : '광진구' , 
-        plays : ['광진구에서 놀기1', '광진구에서 놀기2', '광진구에서 놀기3']
-      } , 
-      {
-        city : '구로구' , 
-        plays : ['구로구에서 놀기1', '구로구에서 놀기2', '구로구에서 놀기3']
-      } , 
-      {
-        city : '금천구' , 
-        plays : ['금천구에서 놀기1', '금천구에서 놀기2', '금천구에서 놀기3']
-      } , 
-      {
-        city : '노원구' , 
-        plays : ['노원구에서 놀기1', '노원구에서 놀기2', '노원구에서 놀기3']
-      } , 
-      {
-        city : '도봉구' , 
-        plays : ['도봉구에서 놀기1', '도봉구에서 놀기2', '도봉구에서 놀기3']
-      } , 
-      {
-        city : '동대문구' , 
-        plays : ['동대문구에서 놀기1', '동대문구에서 놀기2', '동대문구에서 놀기3']
-      } , 
-      {
-        city : '동작구' , 
-        plays : ['동작구에서 놀기1', '동작구에서 놀기2', '동작구에서 놀기3']
-      } , 
-      {
-        city : '마포구' , 
-        plays : ['마포구에서 놀기1', '마포구에서 놀기2', '마포구에서 놀기3']
-      } , 
-      {
-        city : '서대문구' , 
-        plays : ['서대문구에서 놀기1', '서대문구에서 놀기2', '서대문구에서 놀기3']
-      } , 
-      {
-        city : '서초구' , 
-        plays : ['서초구에서 놀기1', '서초구에서 놀기2', '서초구에서 놀기3']
-      } , 
-      {
-        city : '성동구' , 
-        plays : ['성동구에서 놀기1', '성동구에서 놀기2', '성동구에서 놀기3']
-      } , 
-      {
-        city : '성북구' , 
-        plays : ['성북구에서 놀기1', '성북구에서 놀기2', '성북구에서 놀기3']
-      } , 
-      {
-        city : '송파구' , 
-        plays : ['송파구에서 놀기1', '송파구에서 놀기2', '송파구에서 놀기3']
-      } , 
-      {
-        city : '양천구' , 
-        plays : ['양천구에서 놀기1', '양천구에서 놀기2', '양천구에서 놀기3']
-      } , 
-      {
-        city : '영등포구' , 
-        plays : ['영등포구에서 놀기1', '영등포구에서 놀기2', '영등포구에서 놀기3']
-      } , 
-      {
-        city : '용산구' , 
-        plays : ['용산구에서 놀기1', '용산구에서 놀기2', '용산구에서 놀기3']
-      } , 
-      {
-        city : '은평구' , 
-        plays : ['은평구에서 놀기1', '은평구에서 놀기2', '은평구에서 놀기3']
-      } , 
-      {
-        city : '종로구' , 
-        plays : ['종로구에서 놀기1', '종로구에서 놀기2', '종로구에서 놀기3']
-      } , 
-      {
-        city : '중구' , 
-        plays : ['중구에서 놀기1', '중구에서 놀기2', '중구에서 놀기3']
-      } , 
-      {
-        city : '중랑구' , 
-        plays : ['중랑구에서 놀기1', '중랑구에서 놀기2', '중랑구에서 놀기3']
-      } , 
-    ]
-  } ,
-  {
-    city : '경기' , 
-    child : [
-      {
-        city : '수원시' , 
-        plays : ['수원시에서 놀기1', '수원시에서 놀기2', '수원시에서 놀기3']
-      } , 
-      {
-        city : '고양시' , 
-        plays : ['고양시에서 놀기1', '고양시에서 놀기2', '고양시에서 놀기3']
-      } , 
-      {
-        city : '화성시' , 
-        plays : ['화성시에서 놀기1', '화성시에서 놀기2', '화성시에서 놀기3']
-      } , 
-    ]
-  } ,
-  // '월드컵공원 산책하기' , '하늘공원 산책하기', '한국 영화박물관 가기', '홍대클럽가기', '공덕동 족발골목가서 족발먹기', '상수동 카페거리 가기'
-] ; 
-
-const selectDatas = ref('') ; 
-const buttonText = ref('추천해줘!') ;
-const buttonClicked = ref( false ) ; 
-
-const  loChild = ref({
+// 하위 지역 선택
+const locationChild = ref({
   selected : '' , 
   options : []
 }) ;
 
+
+// 랜덤 숫자
 const getRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
+// 랜덤 데이터 뽑아오기
 const getRandomData = () => {
-  console.log( 'getRandomData in' ) ;
+
+  console.log('getRandomData in') ; 
 
   return new Promise((resolve) => {
 
     setTimeout(() => { // 로딩바를 보여주기 위해 강제로 로딩 시간 2초 넣어둠
 
       let 
-        bigCity = location.value.selected
-      , smallCity = loChild.value.selected
-      , count = null
-      , result = null
+          bigCity = location.value.selected
+      ,   smallCity = locationChild.value.selected
+      ,   count = null
+      ,   result = null
       ; 
     
-      const bigCityObj = sampleDatas.find(data => data.city === bigCity);
+      const bigCityObj = playDatas.value.find(data => data.city === bigCity);
       
-      if (!bigCityObj) return null;
+      if (!bigCityObj) {
+        resultData.value.unshift( '선택한 대도시가 없습니다.' );
+        resetStatus() ; 
+        return null;
+      };
     
       const smallCityObj = bigCityObj.child.find(data => data.city === smallCity);
-
     
-      if (!smallCityObj) return null;
+      if (!smallCityObj) {
+        resultData.value.unshift( '선택한 지역에 대한 활동 정보가 없습니다.' );
+        resetStatus() ; 
+        return null;
+      }
 
       count = getRandomNumber(0, smallCityObj.plays.length - 1) ; 
       result = smallCityObj.plays[ count ] ;
     
       resolve( result );
 
-    },2000) ; 
+    }, 2000 ) ; 
   }) ;
-
-  
 
 };
 
+const getAddInfoData = ( resultData ) => {
+  console.log('getAddInfoData in', resultData) ; 
+  let blogData = null ; 
+  axios.get('https://openapi.naver.com/v1/search/blog.json',{
+    params : { query : resultData } ,
+    headers : {
+      "X-Naver-Client-Id" : id , 
+      "X-Naver-Client-Secret" : secretId , 
+    }
+  }).then((response) => {
+    console.log('response : ', response ) ; 
+  })
+}
+
 const buttonClick = async () => {
   if( buttonClicked.value ) return ;
-  selectDatas.value = '' ;
+  // resultData.value = [] ;
   buttonClicked.value = true ; 
   buttonText.value = '잠시만 기다려주세요...' ;
 
-  selectDatas.value = await getRandomData() ;
+  resultData.value.unshift( await getRandomData() ) ;
+  
+  resetStatus() ; 
+}
+
+const resetStatus = () => {
   buttonClicked.value = false;
   buttonText.value = '추천해줘!';
-
-  
 }
 
 watch(() => location.value.selected, (value) => {
   let crntChild = location.value.options.filter( (t) => t.label === value )[0] ;
-  loChild.value.options = crntChild.child ;
-  loChild.value.selected = crntChild.child[0].label ;
+  locationChild.value.options = crntChild.child ;
+  locationChild.value.selected = crntChild.child[0].label ;
 });
 
 onMounted(() => {
-  loChild.value.options = location.value.options[0].child ;
-  loChild.value.selected = location.value.options[0].child[0].label ;
+  locationChild.value.options = location.value.options[0].child ;
+  locationChild.value.selected = location.value.options[0].child[0].label ;
 });
 
 </script>
@@ -525,10 +426,13 @@ onMounted(() => {
     <h1 class="text-lg mb-4 tracking-tighter absolute top-2.5 left-2.5">{{ appTitle }}</h1>
     <h2 class="text-xl mb-4 tracking-tighter">{{ titleWhere }}</h2>
 
-    <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-2 w-full">
 
       <div class="flex items-center justify-center">
-        <select name="" id="" class="text-white-800 cursor-pointer bg-slate-950 w-28 p-1" v-model="location.selected">
+        <select 
+          class="text-lg text-white-800 cursor-pointer w-28 select" 
+          v-model="location.selected"
+        >
           <template v-for="(t,i) in location.options" :key="i">
             <option class="text-white-800">{{ t.label }}</option>
           </template>
@@ -536,47 +440,46 @@ onMounted(() => {
       </div>
 
       <div class="flex items-center justify-center">
-        <select name="" id="" class="text-white-800 cursor-pointer bg-slate-950 w-28 p-1" v-model="loChild.selected">
-          <template v-for="(t,i) in loChild.options" :key="i">
+        <select 
+          class="text-lg text-white-800 cursor-pointer w-28 select" 
+          v-model="locationChild.selected"
+        >
+          <template v-for="(t,i) in locationChild.options" :key="i">
             <option class="text-white-800">{{ t.label }}</option>
           </template>
         </select>
       </div>
 
       <div class="flex items-center justify-center mt-6">
-        <!-- <button type="button" class="inline-flex border-gray-600 border-2 p-2 px-4" @click="handleButtonClick">골라줘!!!</button> -->
-
         <button 
-          class="relative border-gray-600 border-2 bg-gray-900 text-white text-center outline-none uppercase tracking-tighter py-3 px-4 leading-4 transition-all duration-500 ease-in-out rounded-full cursor-pointer text-xl"
-              v-bind:class="{ 'pr-8 pl-4': buttonClicked }"
+          class="relative border-gray-600 border-2 bg-gray-900 text-white text-center outline-none uppercase tracking-tighter py-3 px-6 leading-4 transition-all duration-500 ease-in-out rounded-full cursor-pointer text-xl"
+          :class="{ 'pr-8 pl-4': buttonClicked }"
           v-on:click="buttonClick()"
         >
           {{ buttonText }}
           <span 
             class="loader animation-spin h-3 w-3 bg-transparent absolute opacity-0 box-border transition-all duration-500 ease-in-out mx-auto rounded-full"
-            v-bind:class="{ 'opacity-100': buttonClicked }"
+            :class="{ 'opacity-100': buttonClicked }"
           >
           </span>
         </button>
         
       </div>
 
-      <div class="flex items-center justify-center mt-6">
-        <strong class="inline-flex text-2xl font-normal tracking-tight text-white h-20 items-center justify-center px-10">{{ selectDatas }}</strong>
+      <div class="flex flex-col items-center justify-center mt-6">
+        <strong class="inline-flex text-2xl font-normal tracking-tighter text-white h-20 items-center justify-center px-10">
+          {{ resultData[0] }}
+        </strong> 
+        <ul class="flex flex-col bx-prev-data">
+          <li
+            class="inline-flex font-normal tracking-tighter text-white items-center justify-center px-10 opacity-20 text-base"
+            :class="{ 'hidden' : idx == 0 }"
+            v-for="(item,idx) in resultData" :key="idx"
+          >
+            {{ item }}
+          </li>
+        </ul>
       </div>
-
-      <!-- <div class="absolute left-0 top-0 grid w-full h-full place-items-center rounded-lg p-6 lg:overflow-visible">
-        <svg class="text-gray-300 animate-spin" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"
-          width="24" height="24">
-          <path
-            d="M32 3C35.8083 3 39.5794 3.75011 43.0978 5.20749C46.6163 6.66488 49.8132 8.80101 52.5061 11.4939C55.199 14.1868 57.3351 17.3837 58.7925 20.9022C60.2499 24.4206 61 28.1917 61 32C61 35.8083 60.2499 39.5794 58.7925 43.0978C57.3351 46.6163 55.199 49.8132 52.5061 52.5061C49.8132 55.199 46.6163 57.3351 43.0978 58.7925C39.5794 60.2499 35.8083 61 32 61C28.1917 61 24.4206 60.2499 20.9022 58.7925C17.3837 57.3351 14.1868 55.199 11.4939 52.5061C8.801 49.8132 6.66487 46.6163 5.20749 43.0978C3.7501 39.5794 3 35.8083 3 32C3 28.1917 3.75011 24.4206 5.2075 20.9022C6.66489 17.3837 8.80101 14.1868 11.4939 11.4939C14.1868 8.80099 17.3838 6.66487 20.9022 5.20749C24.4206 3.7501 28.1917 3 32 3L32 3Z"
-            stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
-          <path
-            d="M32 3C36.5778 3 41.0906 4.08374 45.1692 6.16256C49.2477 8.24138 52.7762 11.2562 55.466 14.9605C58.1558 18.6647 59.9304 22.9531 60.6448 27.4748C61.3591 31.9965 60.9928 36.6232 59.5759 40.9762"
-            stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" class="text-gray-900">
-          </path>
-        </svg>
-      </div> -->
 
       <!-- 
       제목 : 지금 뭐하지?
