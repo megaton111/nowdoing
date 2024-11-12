@@ -10,15 +10,10 @@ const resultData = ref([]) ;
 const buttonText = ref('추천해줘!') ;
 const buttonClicked = ref( false ) ; 
 const latestData = ref('') ; 
-
 const CLIENTID = 'SyfOOErOjwuGUGQo_7dk' ; 
 const CLIENTSECRET = '_tcZ5f056o' ;
-
-const PROXY = window.location.hostname === 'localhost' ? '' : '/proxy';
+const PROXY = window.location.hostname === 'localhost' ? '' : 'https://openapi.naver.com';
 const url = `${PROXY}/v1/search/blog.json`;
-
-const BOOKURL = "/v1/search/book.json?sort=date&d_titl=%EC%A3%BC%EC%8B%9D&display=10&start=1";
-
 const isChk = ref( false ) ; 
 const blogData = ref([]) ; 
 
@@ -349,8 +344,6 @@ const getRandomNumber = (min, max) => {
 
 // 랜덤 데이터 뽑아오기
 const getRandomData = () => {
-
-  console.log('getRandomData in') ; 
 
   return new Promise((resolve) => {
 
