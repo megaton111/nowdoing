@@ -13,7 +13,9 @@ const latestData = ref('') ;
 
 const CLIENTID = 'SyfOOErOjwuGUGQo_7dk' ; 
 const CLIENTSECRET = '_tcZ5f056o' ;
-const url = '/v1/search/blog.json';
+
+const PROXY = window.location.hostname === 'localhost' ? '' : '/proxy';
+const url = `${PROXY}/v1/search/blog.json`;
 
 const BOOKURL = "/v1/search/book.json?sort=date&d_titl=%EC%A3%BC%EC%8B%9D&display=10&start=1";
 
