@@ -21,6 +21,7 @@ export default defineConfig({
       '/v1': {
         target: 'https://openapi.naver.com',
         changeOrigin: true,
+        pathRewrite: { '^/proxy': '' },
       }
     }
   }
