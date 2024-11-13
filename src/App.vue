@@ -13,9 +13,10 @@ const latestData = ref('') ;
 const CLIENTID = 'SyfOOErOjwuGUGQo_7dk' ; 
 const CLIENTSECRET = '_tcZ5f056o' ;
 const PROXY = window.location.hostname === 'localhost' ? '' : '/proxy';
-// const url = `${PROXY}/v1/search/blog.json`;
-// const url = `/proxy/v1/search/blog.json`;
-const url = '/.netlify/functions/proxy';
+
+// local 용
+const url = window.location.hostname === 'localhost' ? '/proxy/v1/search/blog.json' : '/.netlify/functions/proxy';
+// const url = '/.netlify/functions/proxy';
 const isChk = ref( false ) ; 
 const blogData = ref([]) ; 
 
@@ -529,7 +530,7 @@ onMounted(() => {
         </ul> -->
         
         <!-- 블로그 관련글 -->
-        <ul class="flex flex-col gap-1 px-4 pt-6 bx-blog-data">
+        <ul class="flex flex-col gap-1 px-4 mt-6 bx-blog-data">
           <li v-for="(blog,bIdx) in blogData" :key="bIdx">
             <a :href="blog.link" v-html="blog.title" target="_blank"></a>
           </li>
