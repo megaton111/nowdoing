@@ -9,6 +9,7 @@ const titleWhere = ref('위치를 선택해주세요!') ;
 const resultData = ref([]) ; 
 const buttonText = ref('추천해줘!') ;
 const buttonClicked = ref( false ) ; 
+const blogButtonClicked = ref( false ) ; 
 const latestData = ref('') ; 
 const CLIENTID = 'SyfOOErOjwuGUGQo_7dk' ; 
 const CLIENTSECRET = '_tcZ5f056o' ;
@@ -406,6 +407,7 @@ const getAddInfoData = async ( resultData ) => {
       });
 
       blogData.value = response.data.items ;
+      blogButtonClicked.value = false ; 
       console.log('blogData : ', blogData ) ; 
     
     } catch (error) {
@@ -428,6 +430,8 @@ const getPlayDataHandler = async () => {
 
 // 관련정보 더보기 버튼 클릭 이벤트
 const showBlogPostHandler = () => {
+  if( blogData.value.length > 0 ) return ; 
+  blogButtonClicked.value = true ; 
   getAddInfoData( latestData.value ) ; 
 }
 
@@ -530,11 +534,19 @@ onMounted(() => {
         </ul> -->
         
         <!-- 블로그 관련글 -->
-        <ul class="flex flex-col gap-1 px-4 mt-6 bx-blog-data">
-          <li v-for="(blog,bIdx) in blogData" :key="bIdx">
-            <a :href="blog.link" v-html="blog.title" target="_blank"></a>
-          </li>
-        </ul>
+        <div class="bx-blog-data mt-6 flex w-full justify-center">
+          <span 
+            v-if="blogButtonClicked"
+            class="loader animation-spin h-3 w-3 bg-transparent opacity-0 box-border transition-all duration-500 ease-in-out mx-auto rounded-full mt-3"
+            :class="{ 'opacity-100': blogButtonClicked }"
+          >
+          </span>
+          <ul class="flex flex-col gap-1 px-4 items-start justify-start">
+            <li v-for="(blog,bIdx) in blogData" :key="bIdx">
+              <a :href="blog.link" v-html="blog.title" target="_blank"></a>
+            </li>
+          </ul>
+        </div>
       </div>
 
     </div>
