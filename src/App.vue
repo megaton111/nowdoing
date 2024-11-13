@@ -14,7 +14,8 @@ const CLIENTID = 'SyfOOErOjwuGUGQo_7dk' ;
 const CLIENTSECRET = '_tcZ5f056o' ;
 const PROXY = window.location.hostname === 'localhost' ? '' : '/proxy';
 // const url = `${PROXY}/v1/search/blog.json`;
-const url = `/proxy/v1/search/blog.json`;
+// const url = `/proxy/v1/search/blog.json`;
+const url = '/.netlify/functions/proxy';
 const isChk = ref( false ) ; 
 const blogData = ref([]) ; 
 
