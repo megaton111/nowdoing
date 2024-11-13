@@ -385,6 +385,8 @@ const getRandomData = () => {
 // 블로그 글 리스트 가져오기
 const getAddInfoData = async ( resultData ) => {
 
+  console.log('url: ', url) ; 
+
   try {
       const response = await axios.get(url, {
         params: {
@@ -525,9 +527,9 @@ onMounted(() => {
         </ul> -->
         
         <!-- 블로그 관련글 -->
-        <ul class="flex flex-col gap-1 px-4 bx-blog-data">
+        <ul class="flex flex-col gap-1 px-4 pt-6 bx-blog-data">
           <li v-for="(blog,bIdx) in blogData" :key="bIdx">
-            <a :href="blog.link" v-html="blog.title"></a>
+            <a :href="blog.link" v-html="blog.title" target="_blank"></a>
           </li>
         </ul>
       </div>
