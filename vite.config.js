@@ -18,10 +18,10 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/v1': {
+      '/proxy': {
         target: 'https://openapi.naver.com',
         changeOrigin: true,
-        pathRewrite: { '^/proxy': '' },
+        rewrite: (path) => path.replace(/^\/proxy/, ''),
       }
     }
   }
