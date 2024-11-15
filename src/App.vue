@@ -14,6 +14,8 @@ const latestData = ref('') ;
 const CLIENTID = 'SyfOOErOjwuGUGQo_7dk' ; 
 const CLIENTSECRET = '_tcZ5f056o' ;
 const PROXY = window.location.hostname === 'localhost' ? '' : '/proxy';
+const selectBlogLink = ref(null) ; 
+const showBlog = ref(false) ; 
 
 // local 용
 const url = window.location.hostname === 'localhost' ? '/proxy/v1/search/blog.json' : '/.netlify/functions/proxy';
@@ -389,8 +391,6 @@ const getRandomData = () => {
 // 블로그 글 리스트 가져오기
 const getAddInfoData = async ( resultData ) => {
 
-  console.log('url: ', url) ; 
-
   try {
       const response = await axios.get(url, {
         params: {
@@ -408,7 +408,6 @@ const getAddInfoData = async ( resultData ) => {
 
       blogData.value = response.data.items ;
       blogButtonClicked.value = false ; 
-      console.log('blogData : ', blogData ) ; 
     
     } catch (error) {
       console.error('Error fetching blog data:', error);
@@ -419,6 +418,7 @@ const getAddInfoData = async ( resultData ) => {
 // 추천하기 버튼 클릭 이벤트
 const getPlayDataHandler = async () => {
   if( buttonClicked.value ) return ;
+  latestData.value = null ;
   buttonClicked.value = true ; 
   blogData.value = [] ; 
   buttonText.value = '잠시만 기다려주세요...' ;
@@ -440,6 +440,17 @@ const resetStatus = () => {
   buttonClicked.value = false;
   buttonText.value = '추천해줘!';
 }
+
+const showBlogIfarme = ( link ) => {
+  showBlog.value = true ; 
+  selectBlogLink.value = link ; 
+}
+
+const closeBlogIframe = () => {
+  showBlog.value = false ; 
+  selectBlogLink.value = '' ; 
+}
+
 
 watch(() => location.value.selected, (value) => {
   let crntChild = location.value.options.filter( (t) => t.label === value )[0] ;
@@ -502,8 +513,12 @@ onMounted(() => {
         
       </div>
 
-      <div class="flex flex-col items-center justify-center mt-6">
-        <strong class="inline-flex text-4xl font-normal tracking-tighter text-white items-center justify-center px-10">
+      <div 
+        class="flex flex-col items-center justify-center mt-6"
+      >
+        <strong
+          class="inline-flex text-4xl font-normal tracking-tighter text-white items-center justify-center px-10"
+        >
           {{ resultData[0] }} 
         </strong> 
         <button 
@@ -534,19 +549,34 @@ onMounted(() => {
         </ul> -->
         
         <!-- 블로그 관련글 -->
-        <div class="bx-blog-data mt-6 flex w-full justify-center">
+        <div class="bx-blog-data mt-6 flex w-full justify-center relative">
           <span 
             v-if="blogButtonClicked"
-            class="loader animation-spin h-3 w-3 bg-transparent opacity-0 box-border transition-all duration-500 ease-in-out mx-auto rounded-full mt-3"
+            class="loader blog-loader animation-spin h-3 w-3 bg-transparent opacity-0 box-border transition-all duration-500 ease-in-out mx-auto rounded-full mt-3 absolute"
             :class="{ 'opacity-100': blogButtonClicked }"
           >
           </span>
-          <ul class="flex flex-col gap-1 px-4 items-start justify-start">
+          <ul class="flex flex-col gap-1 px-4 justify-start w-full items-center">
             <li v-for="(blog,bIdx) in blogData" :key="bIdx">
-              <a :href="blog.link" v-html="blog.title" target="_blank"></a>
+              <!-- <a :href="blog.link" v-html="blog.title"></a> -->
+              <button type="button" v-html="blog.title" @click="showBlogIfarme( blog.link )"></button>
             </li>
           </ul>
         </div>
+
+        <!-- <div class="blogWrap" v-if="showBlog">
+          <iframe :src="selectBlogLink" frameborder="0" sandbox></iframe>
+        </div> -->
+
+        <div v-if="showBlog" class="overlay fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <div class="relative bg-white p-4 rounded-lg w-11/12 h-5/6 max-w-3xl">
+            <button @click="closeBlogIframe" class="absolute top-2 right-2 text-gray-600 hover:text-gray-800">
+              X
+            </button>
+            <iframe :src="selectBlogLink" frameborder="0" sandbox="allow-scripts allow-same-origin" class="w-full h-full"></iframe>
+          </div>
+        </div>
+
       </div>
 
     </div>
@@ -568,6 +598,9 @@ onMounted(() => {
   border-left: 2px solid #fff;
   border-bottom: 2px solid #fff;
   border-right: 2px solid rgba(#fff, 0.35);
+  &.blog-loader {
+    right:50% ; 
+  }
 }
 
 .animation-spin {
@@ -583,6 +616,16 @@ onMounted(() => {
   }
   to {
     transform: translateY(-50%) rotate(360deg);
+  }
+}
+
+.blogWrap{
+  position: absolute;
+  left: 10px ; top: 10px ; right: 10px ; bottom: 10px ;
+  background-color: #fff;
+  padding:20px ; 
+  iframe {
+    width: 100% ; height:100% ;
   }
 }
 </style>
