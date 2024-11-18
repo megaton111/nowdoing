@@ -383,7 +383,7 @@ const getRandomData = () => {
     
       resolve( result );
 
-    }, 2000 ) ; 
+    }, 1000 ) ; 
   }) ;
 
 };
@@ -450,7 +450,6 @@ const closeBlogIframe = () => {
   showBlog.value = false ; 
   selectBlogLink.value = '' ; 
 }
-
 
 watch(() => location.value.selected, (value) => {
   let crntChild = location.value.options.filter( (t) => t.label === value )[0] ;
@@ -521,7 +520,7 @@ onMounted(() => {
         >
           {{ resultData[0] }} 
         </strong> 
-        <button 
+        <!-- <button 
           type="button" 
           class="flex text-sm mb-4 mt-2 w-full justify-center"
           @click="showBlogPostHandler"
@@ -535,7 +534,7 @@ onMounted(() => {
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
           </svg>
-        </button>
+        </button> -->
 
         <!-- 이전 조회 데이터 -->
         <!-- <ul class="flex flex-col bx-prev-data">
@@ -549,7 +548,7 @@ onMounted(() => {
         </ul> -->
         
         <!-- 블로그 관련글 -->
-        <div class="bx-blog-data mt-6 flex w-full justify-center relative">
+        <!-- <div class="bx-blog-data mt-6 flex w-full justify-center relative">
           <span 
             v-if="blogButtonClicked"
             class="loader blog-loader animation-spin h-3 w-3 bg-transparent opacity-0 box-border transition-all duration-500 ease-in-out mx-auto rounded-full mt-3 absolute"
@@ -558,24 +557,23 @@ onMounted(() => {
           </span>
           <ul class="flex flex-col gap-1 px-4 justify-start w-full items-center">
             <li v-for="(blog,bIdx) in blogData" :key="bIdx">
-              <!-- <a :href="blog.link" v-html="blog.title"></a> -->
               <button type="button" v-html="blog.title" @click="showBlogIfarme( blog.link )"></button>
             </li>
           </ul>
-        </div>
+        </div> -->
 
         <!-- <div class="blogWrap" v-if="showBlog">
           <iframe :src="selectBlogLink" frameborder="0" sandbox></iframe>
         </div> -->
 
-        <div v-if="showBlog" class="overlay fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+        <!-- <div v-if="showBlog" class="overlay fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
           <div class="relative bg-white p-4 rounded-lg w-11/12 h-5/6 max-w-3xl">
             <button @click="closeBlogIframe" class="absolute top-2 right-2 text-gray-600 hover:text-gray-800">
               X
             </button>
-            <iframe :src="selectBlogLink" frameborder="0" sandbox="allow-scripts allow-same-origin" class="w-full h-full"></iframe>
+            <iframe :src="selectBlogLink" frameborder="0" sandbox="allow-same-origin allow-scripts allow-popups allow-top-navigation-by-user-activation" class="w-full h-full"></iframe>
           </div>
-        </div>
+        </div> -->
 
       </div>
 
