@@ -383,7 +383,7 @@ const getRandomData = () => {
     
       resolve( result );
 
-    }, 1000 ) ; 
+    }, 300 ) ; 
   }) ;
 
 };
