@@ -56,42 +56,42 @@ const location = ref({
         { id : 'jl', label : '중랑구' } ,
       ]
     } , 
-    { id : 'gy' , label : '경기',
+    { id : 'gy' , label : '경기', disabled : false ,
       child : [
-        { id : '', label : '수원시' } ,
-        { id : '', label : '용인시' } ,
-        { id : '', label : '고양시' } ,
-        { id : '', label : '화성시' } ,
-        { id : '', label : '성남시' } ,
-        { id : '', label : '부천시' } ,
-        { id : '', label : '남양주시' } ,
-        { id : '', label : '안산시' } ,
-        { id : '', label : '평택시' } ,
-        { id : '', label : '안양시' } ,
-        { id : '', label : '시흥시' } ,
-        { id : '', label : '파주시' } ,
-        { id : '', label : '김포시' } ,
-        { id : '', label : '의정부시' } ,
-        { id : '', label : '광주시' } ,
-        { id : '', label : '하남시' } ,
-        { id : '', label : '광명시' } ,
-        { id : '', label : '군포시' } ,
-        { id : '', label : '양주시' } ,
-        { id : '', label : '오산시' } ,
-        { id : '', label : '이천시' } ,
-        { id : '', label : '안성시' } ,
-        { id : '', label : '구리시' } ,
-        { id : '', label : '의왕시' } ,
-        { id : '', label : '포천시' } ,
-        { id : '', label : '양평군' } ,
-        { id : '', label : '여주시' } ,
-        { id : '', label : '동두천시' } ,
-        { id : '', label : '과천시' } ,
-        { id : '', label : '가평군' } ,
-        { id : '', label : '연천군' } ,
+        { id : '', label : '수원시', disabled : false } ,
+        { id : '', label : '용인시', disabled : false } ,
+        { id : '', label : '고양시', disabled : false } ,
+        { id : '', label : '화성시', disabled : false } ,
+        { id : '', label : '성남시', disabled : false } ,
+        { id : '', label : '부천시', disabled : false } ,
+        { id : '', label : '남양주시', disabled : false } ,
+        { id : '', label : '안산시', disabled : false } ,
+        { id : '', label : '평택시', disabled : false } ,
+        { id : '', label : '안양시', disabled : false } ,
+        { id : '', label : '시흥시', disabled : false } ,
+        { id : '', label : '파주시', disabled : false } ,
+        { id : '', label : '김포시', disabled : false } ,
+        { id : '', label : '의정부시', disabled : false } ,
+        { id : '', label : '광주시', disabled : false } ,
+        { id : '', label : '하남시', disabled : false } ,
+        { id : '', label : '광명시', disabled : false } ,
+        { id : '', label : '군포시', disabled : true } ,
+        { id : '', label : '양주시', disabled : true } ,
+        { id : '', label : '오산시', disabled : true } ,
+        { id : '', label : '이천시', disabled : true } ,
+        { id : '', label : '안성시', disabled : true } ,
+        { id : '', label : '구리시', disabled : true } ,
+        { id : '', label : '의왕시', disabled : true } ,
+        { id : '', label : '포천시', disabled : true } ,
+        { id : '', label : '양평군', disabled : true } ,
+        { id : '', label : '여주시', disabled : true } ,
+        { id : '', label : '동두천시', disabled : true } ,
+        { id : '', label : '과천시', disabled : true } ,
+        { id : '', label : '가평군', disabled : true } ,
+        { id : '', label : '연천군', disabled : true } ,
       ]
     } , 
-    { id : 'in' , label : '인천',
+    { id : 'in' , label : '인천', disabled : true ,
       child : [
         { id : '', label : '중구' } ,
         { id : '', label : '동구' } ,
@@ -105,7 +105,7 @@ const location = ref({
         { id : '', label : '옹진군' } ,
       ]
     } , 
-    { id : 'bu' , label : '부산',
+    { id : 'bu' , label : '부산', disabled : true ,
       child : [
         { id : 'bu1', label : '강서구' } ,
         { id : 'bu2', label : '금정구' } ,
@@ -125,7 +125,7 @@ const location = ref({
         { id : 'bu16', label : '해운대구' } ,
       ]
     } , 
-    { id : 'dj' , label : '대전',
+    { id : 'dj' , label : '대전', disabled : true ,
       child : [
         { id : 'dj1', label : '대덕구' } ,
         { id : 'dj2', label : '동구' } ,
@@ -134,7 +134,7 @@ const location = ref({
         { id : 'dj5', label : '중구' } ,
       ]
     } , 
-    { id : 'dg' , label : '대구',
+    { id : 'dg' , label : '대구', disabled : true ,
       child : [
         { id : 'dg1', label : '군위군' } ,
         { id : 'dg2', label : '남구' } ,
@@ -147,7 +147,7 @@ const location = ref({
         { id : 'dg9', label : '중구' } ,
       ]
     } , 
-    { id : 'us' , label : '울산',
+    { id : 'us' , label : '울산', disabled : true ,
       child : [
         { id : 'us1', label : '남구' } ,
         { id : 'us2', label : '동구' } ,
@@ -156,12 +156,12 @@ const location = ref({
         { id : 'us5', label : '중구' } ,
       ]
     } , 
-    { id : 'sj' , label : '세종',
+    { id : 'sj' , label : '세종', disabled : true ,
       child : [
         { id : 'sj1', label : '세종' } ,
       ]
     } , 
-    { id : 'gj' , label : '광주',
+    { id : 'gj' , label : '광주', disabled : true ,
       child : [
         { id : 'gj1', label : '광산구' },
         { id : 'gj2', label : '남구' },
@@ -170,7 +170,7 @@ const location = ref({
         { id : 'gj5', label : '서구' },
       ]
     } , 
-    { id : 'gw' , label : '강원',
+    { id : 'gw' , label : '강원', disabled : true ,
       child : [
         { id : 'gw1', label : '강릉시' } ,
         { id : 'gw2', label : '고성군' } ,
@@ -192,7 +192,7 @@ const location = ref({
         { id : 'gw18', label : '횡성군' } ,
       ]
     } , 
-    { id : 'cb' , label : '충북',
+    { id : 'cb' , label : '충북', disabled : true ,
       child : [
         { id : 'cb1', label : '괴산군' } ,
         { id : 'cb2', label : '단양군' } ,
@@ -210,7 +210,7 @@ const location = ref({
         { id : 'cb14', label : '충주시' } ,
       ]
     } , 
-    { id : 'cn' , label : '충남',
+    { id : 'cn' , label : '충남', disabled : true ,
       child : [
         { id : 'cn1', label : '계룡시' } ,
         { id : 'cn2', label : '공주시' } ,
@@ -230,7 +230,7 @@ const location = ref({
         { id : 'cn16', label : '홍성군' } ,
       ]
     } , 
-    { id : 'gb' , label : '경북',
+    { id : 'gb' , label : '경북', disabled : true ,
       child : [
         { id : 'gb1', label : '경산시' } ,
         { id : 'gb2', label : '경주시' } ,
@@ -257,7 +257,7 @@ const location = ref({
         { id : 'gb23', label : '포항시 북구' } ,
       ]
     } , 
-    { id : 'gn' , label : '경남',
+    { id : 'gn' , label : '경남', disabled : true ,
       child : [
         { id : 'gn1' , label : '거제시' } ,
         { id : 'gn2' , label : '거창군' } ,
@@ -283,7 +283,7 @@ const location = ref({
         { id : 'gn22' , label : '합천군' } ,
       ]
     } , 
-    { id : 'jb' , label : '전북',
+    { id : 'jb' , label : '전북', disabled : true ,
       child : [
         { id : 'jb1', label : '고창군' } ,
         { id : 'jb2', label : '군산시' } ,
@@ -302,7 +302,7 @@ const location = ref({
         { id : 'jb15', label : '진안군' } ,
       ]
     } , 
-    { id : 'jn' , label : '전남',
+    { id : 'jn' , label : '전남', disabled : true ,
       child : [
         { id : 'jn1', label : '강진군' } ,
         { id : 'jn2', label : '고흥군' } ,
@@ -328,7 +328,7 @@ const location = ref({
         { id : 'jn22', label : '화순군' } ,
       ]
     } , 
-    { id : 'jj' , label : '제주',
+    { id : 'jj' , label : '제주', disabled : true ,
       child : [
         { id : 'jj1', label : '서귀포시' } ,
         { id : 'jj2', label : '제주시' } ,
@@ -478,7 +478,7 @@ onMounted(() => {
             v-model="location.selected"
           >
             <template v-for="(t,i) in location.options" :key="i">
-              <option class="text-white-800">{{ t.label }}</option>
+              <option class="text-white-800" :disabled="t.disabled">{{ t.label }} {{ t.disabled ? '(준비중)' : ''}}</option>
             </template>
           </select>
         </div>
@@ -489,7 +489,7 @@ onMounted(() => {
             v-model="locationChild.selected"
           >
             <template v-for="(t,i) in locationChild.options" :key="i">
-              <option class="text-white-800">{{ t.label }}</option>
+              <option class="text-white-800" :disabled="t.disabled">{{ t.label }} {{ t.disabled ? '(준비중)' : ''}}</option>
             </template>
           </select>
         </div>
